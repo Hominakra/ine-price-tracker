@@ -1,9 +1,23 @@
 services:
   - type: web
     name: ine-price-tracker-api
-    runtime: node
+    runtime: docker
     plan: free
     rootDir: backend
-    buildCommand: npm install && npx playwright install chromium --with-deps
-    startCommand: npm start
+    dockerfilePath: ./Dockerfile
     healthCheckPath: /api/health
+    envVars:
+      - key: HEADLESS
+        value: "true"
+      - key: ENABLE_INTERNAL_SCHEDULER
+        value: "false"
+      - key: SCRAPE_INTERVAL_MS
+        value: "7200000"
+      - key: STORE_URL
+        value: https://demo.inelabteamdev.com
+      - key: CRON_SECRET
+        sync: false
+      - key: SUPABASE_URL
+        sync: false
+      - key: SUPABASE_SERVICE_ROLE_KEY
+        sync: false
