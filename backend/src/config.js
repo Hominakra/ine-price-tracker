@@ -15,9 +15,10 @@ export const config = {
     : path.join(__dirname, "..", "data", "store.json"),
   supabaseUrl: process.env.SUPABASE_URL || "",
   supabaseKey: process.env.SUPABASE_SERVICE_ROLE_KEY || "",
-  maxAttempts: 3,
+  maxAttempts: Number(process.env.SCRAPE_MAX_ATTEMPTS || 15),
+  scrapeGiveUpMs: Number(process.env.SCRAPE_GIVE_UP_MS || 4 * 60 * 1000),
   scrapeTimeoutMs: 90_000,
-  scrapeIntervalMs: Number(process.env.SCRAPE_INTERVAL_MS || 2 * 60 * 60 * 1000),
+  scrapeIntervalMs: Number(process.env.SCRAPE_INTERVAL_MS || 5 * 60 * 1000),
   enableInternalScheduler:
     String(process.env.ENABLE_INTERNAL_SCHEDULER ?? "true").toLowerCase() !==
     "false",

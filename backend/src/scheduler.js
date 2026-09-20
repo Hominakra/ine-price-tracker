@@ -5,6 +5,10 @@ import { scrapeAllTracked } from "./scraper/scraperService.js";
 let timer = null;
 let running = false;
 
+export function isScrapeRunning() {
+  return running;
+}
+
 function nextRunIso(from = Date.now()) {
   return new Date(from + config.scrapeIntervalMs).toISOString();
 }

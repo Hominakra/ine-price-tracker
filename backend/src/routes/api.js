@@ -3,7 +3,7 @@ import { config } from "../config.js";
 import { store } from "../db/store.js";
 import { getProduct, productUrl, searchProducts } from "../services/catalog.js";
 import { scrapeAndPersist } from "../scraper/scraperService.js";
-import { runScheduledScrape } from "../scheduler.js";
+import { isScrapeRunning, runScheduledScrape } from "../scheduler.js";
 
 export const router = Router();
 
@@ -107,28 +107,28 @@ router.get("/tracked-products/:id", async (req, res, next) => {
   }
 });
 
-router.post("/scrape/all", async (req, res, next) => {
-  try {
-    const run = await runScheduledScrape("manual");
-    res.json(run);
-  } catch (error) {
-    next(error);
+router.post("/scrape/all", (req, res) => {
+  if (isScrapeRunning()) {
+    res.status(202).json({ ok: true, skipped: true, reason: "already-running" });
+    return;
   }
+  runScheduledScrape("manual").catch((err) => console.error("[scrape/all]", err));
+  res.status(202).json({ ok: true, started: true });
 });
 
-router.post("/scrape/run", async (req, res, next) => {
-  try {
-    const auth = req.get("authorization") || "";
-    const token = auth.startsWith("Bearer ") ? auth.slice(7) : req.query.secret;
-    if (config.cronSecret && token !== config.cronSecret) {
-      res.status(401).json({ error: "Unauthorized" });
-      return;
-    }
-    const run = await runScheduledScrape("cron");
-    res.json(run);
-  } catch (error) {
-    next(error);
+router.post("/scrape/run", (req, res) => {
+  const auth = req.get("authorization") || "";
+  const token = auth.startsWith("Bearer ") ? auth.slice(7) : req.query.secret;
+  if (config.cronSecret && token !== config.cronSecret) {
+    res.status(401).json({ error: "Unauthorized" });
+    return;
   }
+  if (isScrapeRunning()) {
+    res.status(202).json({ ok: true, skipped: true, reason: "already-running" });
+    return;
+  }
+  runScheduledScrape("cron").catch((err) => console.error("[scrape/run]", err));
+  res.status(202).json({ ok: true, started: true });
 });
 
 router.post("/scrape/:productId", async (req, res, next) => {
