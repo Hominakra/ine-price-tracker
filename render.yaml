@@ -1,0 +1,9 @@
+services:
+  - type: web
+    name: ine-price-tracker-api
+    runtime: node
+    plan: free
+    rootDir: backend
+    buildCommand: npm install && npx playwright install chromium --with-deps
+    startCommand: npm start
+    healthCheckPath: /api/health

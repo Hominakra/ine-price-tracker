@@ -1,0 +1,5 @@
+{
+  "name": "ine-price-tracker",
+  "private": true,
+  "description": "Monorepo root. Render and Vercel should set root directories to backend and frontend."
+}
