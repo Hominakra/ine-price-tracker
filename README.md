@@ -61,7 +61,7 @@ That request both wakes the backend and runs the scrape. Failed extracts are log
 | `HEADLESS` | `true`/`false` for Playwright |
 | `CRON_SECRET` | Shared secret for scheduled runs |
 | `SCRAPE_INTERVAL_MS` | Store-check interval (default `7200000` = 2 hours) |
-| `ENABLE_INTERNAL_SCHEDULER` | `true` to also loop every 2 hours while the process is awake |
+| `VITE_API_URL` | Frontend only: Render origin, no trailing slash |
 | `DATA_FILE` | Local JSON database path |
 | `SUPABASE_URL` / `SUPABASE_SERVICE_ROLE_KEY` | Optional hosted DB |
 
