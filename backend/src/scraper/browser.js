@@ -4,7 +4,11 @@ import { config } from "../config.js";
 export async function launchBrowser({ headless = config.headless } = {}) {
   return chromium.launch({
     headless,
-    args: ["--disable-blink-features=AutomationControlled"],
+    args: [
+      "--disable-blink-features=AutomationControlled",
+      "--no-sandbox",
+      "--disable-setuid-sandbox",
+    ],
   });
 }
 
