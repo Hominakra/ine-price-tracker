@@ -1,0 +1,122 @@
+:root {
+  font-family: "Segoe UI", Georgia, serif;
+  color: #16202a;
+  background: #f4efe6;
+}
+
+* { box-sizing: border-box; }
+body { margin: 0; }
+button, input { font: inherit; }
+
+.app {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 24px 20px 64px;
+}
+
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  align-items: flex-start;
+  border-bottom: 1px solid #d7cbb8;
+  padding-bottom: 16px;
+}
+
+.schedule {
+  min-width: 240px;
+  font-size: 0.92rem;
+  color: #66707a;
+}
+
+.schedule button { margin-top: 8px; }
+
+.price { font-size: 1.35rem; font-weight: 700; margin: 6px 0; }
+.badge {
+  display: inline-block;
+  margin: 6px 6px 0 0;
+  padding: 3px 8px;
+  background: #e8f4ea;
+  color: #1b6b3a;
+  font-size: 0.8rem;
+}
+.card.selected { outline: 2px solid #1f3b57; }
+.facts {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin: 12px 0 18px;
+}
+.facts strong { display: block; margin-top: 4px; }
+.notice {
+  background: #eef6ee;
+  color: #215c32;
+  padding: 10px 12px;
+  margin: 12px 0;
+}
+
+.brand { margin: 0; font-size: 1.6rem; }
+.muted { color: #66707a; }
+
+.search-row, .toolbar {
+  display: flex;
+  gap: 10px;
+  margin: 18px 0;
+}
+
+input {
+  flex: 1;
+  padding: 10px 12px;
+  border: 1px solid #cfc3b0;
+  background: #fffdf8;
+}
+
+button {
+  border: 0;
+  background: #1f3b57;
+  color: white;
+  padding: 10px 14px;
+  cursor: pointer;
+}
+
+button.secondary { background: #5b4636; }
+button:disabled { opacity: 0.55; cursor: wait; }
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 12px;
+}
+
+.card, .panel {
+  background: #fffdf8;
+  border: 1px solid #e2d6c4;
+  padding: 14px;
+}
+
+.card h3, .panel h2 { margin: 0 0 8px; }
+.meta { font-size: 0.9rem; color: #66707a; }
+
+.layout {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 16px;
+}
+
+table { width: 100%; border-collapse: collapse; font-size: 0.92rem; }
+th, td { text-align: left; padding: 8px 6px; border-bottom: 1px solid #eee4d6; }
+.ok { color: #1b6b3a; font-weight: 600; }
+.fail { color: #a12626; font-weight: 600; }
+.retry { color: #9a6b12; font-weight: 600; }
+
+.error {
+  background: #fdecec;
+  color: #8a1f1f;
+  padding: 10px 12px;
+  margin: 12px 0;
+}
+
+@media (max-width: 860px) {
+  .layout, .facts { grid-template-columns: 1fr; }
+  .topbar { flex-direction: column; }
+}
